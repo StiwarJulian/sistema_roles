@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder {
 
         $editor = User::create( [
             'name' => 'editor',
-            'email' => 'email@email.com',
+            'email' => 'editor@editor.com',
             'password' => bcrypt( '12345678' ),
         ] );
 
@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder {
         //Crear usuario con rol moderador
         $moderador = User::create( [
             'name' => 'mod',
-            'email' => 'email@email.com',
+            'email' => 'mod@mod.com',
             'password' => bcrypt( '12345678' ),
         ] );
 
@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder {
         //Crear usuario con rol superadmin
         $super_admin = User::create( [
             'name' => 'super admin',
-            'email' => 'email@email.com',
+            'email' => 'admin@admin.com',
             'password' => bcrypt( '12345678' ),
         ] );
 
