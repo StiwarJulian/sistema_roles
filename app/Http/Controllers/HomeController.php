@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller {
     /**
     * Create a new controller instance.
@@ -20,7 +22,26 @@ class HomeController extends Controller {
     */
 
     public function index() {
-        return view( 'home' );
-    }
 
+        $user = Auth::user();
+
+        $rol = $user->roles->implode( 'name', ',' );
+
+        switch ( $rol ) {
+            case 'super-admin':
+                $saludo = "Bienvenido super-admin";
+                return view( 'home', compact( 'saludo' ) );
+            break;
+
+            case 'moderador':
+                $saludo = "Bienvenido moderador";
+                return view( 'home', compact( 'saludo' ) );
+            break;
+
+            case 'editor':
+                $saludo = "Bienvenido editor";
+                return view( 'home', compact( 'saludo' ) );
+            break;
+        }
+    }
 }
