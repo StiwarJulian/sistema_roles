@@ -8,9 +8,14 @@
                 <div class="card-header">
                     Listado de Usuarios
                 </div>
+                @if(session("status") == 200)
+                    <div class="alert alert-success">
+                        {{session("message")}}
+                    </div>
+                @endif
                 <div class="card-body">
                     <div class="row justify-content-end mr-2 pb-2">
-                        <a href="#" class="btn btn-success">Nuevo Usuario</a>
+                        <a href="{{ url('/usuarios/create') }}" class="btn btn-success">Nuevo Usuario</a>
                     </div>
                     <table class="table">
                         <thead>
