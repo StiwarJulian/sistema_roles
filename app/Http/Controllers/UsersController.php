@@ -122,6 +122,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        #eliminar role
+        $user->removeRole( $user->roles->implode('name', ' , ') );
+
+        $user->delete();
+
+        return redirect("/usuarios")->with(["message" => "Dato eliminado con exito", "status" => 500]);
     }
 }
