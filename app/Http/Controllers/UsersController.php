@@ -45,7 +45,7 @@ class UsersController extends Controller
         $clave = bcrypt($request->input('password'));
         $rol = $request->input('rol');
 
-        try{
+        try {
             $user = new User();
             $user->name = $nombre;
             $user->email = $email;
@@ -54,12 +54,12 @@ class UsersController extends Controller
 
             $user->assignRole($rol);
 
-            return redirect("/usuarios")->with(["message"=>"Registro realizado con exito", "status"=>200]);
-        }catch(Exception $e){
+            return redirect("/usuarios")->with(["message" => "Registro realizado con exito", "status" => 200]);
+        } catch (Exception $e) {
 
             return back()->with([
                 'message' => "Oh! Ha ocurrido un error!",
-                'status' => 500
+                'status' => 500,
             ]);
         }
 
@@ -84,7 +84,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::find($id);
+
+        $roles = Role::all()->pluck('name', 'id');
+
+        return view("users.edit", compact("users", "roles"));
     }
 
     /**
@@ -96,7 +100,18 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $rol = $request->input('rol');
+
+        $user->name = $name;
+        $user->email = $email;
+        $user->save();
+
+        $user->syncRoles($rol);
+
+        return redirect("/usuarios")->with(["message" => "Modificacion realizada con exito", "status" => 200]);
     }
 
     /**

@@ -22,6 +22,7 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Correo</th>
+                                <th>Rol</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -30,9 +31,10 @@
                             <tr>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
+                                <td>{{$user->roles->implode( 'name', ',' )}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-primary">Editar</a>
-                                    <a href="#" class="btn btn-danger">Eliminar</a>
+                                    <a href="{{url('/usuarios/'.$user->id.'/edit')}}" class="btn btn-primary btn-small">Editar</a>
+                                    <a href="{{url('/usuarios/'.$user->id)}}" class="btn btn-danger btn-small">Eliminar</a>
                                 </td>
                             </tr>
                             @endforeach
