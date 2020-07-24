@@ -18,9 +18,11 @@
                     </div>
                 @endif
                 <div class="card-body">
-                    <div class="row justify-content-end mr-2 pb-2">
-                        <a href="{{ url('/usuarios/create') }}" class="btn btn-success">Nuevo Usuario</a>
-                    </div>
+                    @role("super-admin")
+                        <div class="row justify-content-end mr-2 pb-2">
+                            <a href="{{ url('/usuarios/create') }}" class="btn btn-success">Nuevo Usuario</a>
+                        </div>
+                    @endrole
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
@@ -38,8 +40,12 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->roles->implode( 'name', ',' )}}</td>
                                 <td>
-                                    <a href="{{ url('/usuarios/' .$user->id. '/edit') }}" class="btn btn-primary btn-sm">Editar</a>
-                                    @include( 'users.delete', [ 'user' => $user ])
+                                    @role("moderador")
+                                        <a href="{{ url('/usuarios/' .$user->id. '/edit') }}" class="btn btn-primary btn-sm">Editar</a>
+                                    @endrole
+                                    @role("super-admin")
+                                        @include( 'users.delete', [ 'user' => $user ])
+                                    @endrole
                                 </td>
                             </tr>
                             @endforeach
